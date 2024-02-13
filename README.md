@@ -11,3 +11,10 @@ source .venv/bin/activate
 pip install -r requirements.txt
 python main.py
 ```
+
+TODO:
+- Control ratelimit and duplicate events
+- Control threads emoji including in messages
+- Normalize server and code
+- Reports by user_id
+- unit tests
