@@ -25,7 +25,8 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS datos (
                     name TEXT,
                     email TEXT,
                     segment TEXT,
-                    emoji INTEGER
+                    emoji INTEGER,
+                    CREATED_AT TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 )''')
 
 # Initialize the Slack API client
