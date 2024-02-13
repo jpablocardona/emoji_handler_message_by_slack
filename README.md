@@ -16,5 +16,6 @@ TODO:
 - Control ratelimit and duplicate events
 - Control threads emoji including in messages
 - Normalize server and code
+- Manage max EMOJI by day sender
 - Reports by user_id
 - unit tests
