@@ -21,6 +21,7 @@ cursor = conexion.cursor()
 cursor.execute('''CREATE TABLE IF NOT EXISTS datos (
                     id INTEGER PRIMARY KEY,
                     transaction_id TEXT,
+                    sender_user_id TEXT,
                     user_id TEXT,
                     name TEXT,
                     email TEXT,
@@ -105,6 +106,7 @@ def calculate_emoji(event):
             emoji = extract_count_by_emoji(segment)
 
             user_emoji[user_id] = {
+                "sender_user_id": sender_user_id,
                 "user_id": user_id,
                 "name": user_name,
                 "email": user_email,
@@ -115,7 +117,7 @@ def calculate_emoji(event):
         user_emoji = {k: v for k, v in user_emoji.items() if v["email"] and k != sender_user_id and v["emoji"] > 0}
 
         for user_id, user_info in user_emoji.items():
-            cursor.execute("INSERT INTO datos (transaction_id, user_id, name, email, segment, emoji) VALUES (?, ?, ?, ?, ?, ?)", (client_msg_id, user_info["user_id"], user_info["name"], user_info["email"], user_info["segment"], user_info["emoji"]))
+            cursor.execute("INSERT INTO datos (sender_user_id, transaction_id, user_id, name, email, segment, emoji) VALUES (?, ?, ?, ?, ?, ?, ?)", (sender_user_id, client_msg_id, user_info["user_id"], user_info["name"], user_info["email"], user_info["segment"], user_info["emoji"]))
             conexion.commit()
 
         print("Processed segments {}".format(user_emoji.__len__()))
